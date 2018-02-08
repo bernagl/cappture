@@ -2935,10 +2935,6 @@ pify@^2.0.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
 
-pjs@*:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/pjs/-/pjs-5.1.1.tgz#9dfc4673bb01deffd6915fb1dec75827aba42abf"
-
 plist@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/plist/-/plist-2.0.1.tgz#0a32ca9481b1c364e92e18dc55c876de9d01da8b"
@@ -3321,6 +3317,10 @@ readable-stream@~1.1.8, readable-stream@~1.1.9:
     inherits "~2.0.1"
     isarray "0.0.1"
     string_decoder "~0.10.x"
+
+redux-persist@^5.6.12:
+  version "5.6.12"
+  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.6.12.tgz#7c65f7d9cdd04104507526ef02b30423c4b85743"
 
 redux-thunk@^2.2.0:
   version "2.2.0"
@@ -3839,12 +3839,6 @@ through2@^2.0.0:
 through@^2.3.6:
   version "2.3.8"
   resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
-
-thunk@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/thunk/-/thunk-0.0.1.tgz#6575b00ba36ff4c6c5edf84f923212239a0a7c37"
-  dependencies:
-    pjs "*"
 
 time-stamp@^1.0.0:
   version "1.1.0"
