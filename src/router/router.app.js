@@ -1,17 +1,38 @@
-import { StackNavigator, TabNavigator } from 'react-navigation'
-import { AgregarMateria, Horario, Inicio, MateriaDia, Perfil } from '../screens'
+import { StackNavigator, TabBarBottom, TabNavigator } from 'react-navigation'
+import {
+  AgregarMateria,
+  Horario,
+  Inicio,
+  Materia,
+  MateriaDia,
+  Perfil
+} from '../screens'
 
 export const AppNavigation = StackNavigator(
   {
     Application: {
-      screen: TabNavigator({
-        Inicio: { screen: Inicio },
-        Horario: { screen: Horario },
-        Perfil: { screen: Perfil }
-      })
+      screen: TabNavigator(
+        {
+          Inicio: { screen: Inicio },
+          Horario: { screen: Horario },
+          Perfil: { screen: Perfil }
+        },
+        {
+          showIcon: true,
+          tabBarComponent: TabBarBottom,
+          tabBarPosition: 'bottom',
+          tabBarOptions: {
+            activeTintColor: 'tomato',
+            inactiveTintColor: 'gray'
+          },
+          animationEnabled: false,
+          swipeEnabled: false
+        }
+      )
     },
     AgregarMateria: { screen: AgregarMateria },
-    MateriaDia: { screen: MateriaDia }
+    MateriaDia: { screen: MateriaDia },
+    Materia: { screen: Materia }
   },
   { initialRouteName: 'Application' }
 )

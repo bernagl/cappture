@@ -40,6 +40,11 @@ class Inicio extends React.Component {
     this.setState({ listViewData: newData })
   }
 
+  handleMateria(materia) {
+    console.warn(materia)
+    // this.props.navigation.navigate('Materia', { materia })
+  }
+
   // renderMaterias = () => {
   //   return this.props.materias.map((materia, key) => {
   //     const materiaHoy = materia.dias.find(dia => dia.nombre === hoy)
@@ -61,9 +66,11 @@ class Inicio extends React.Component {
     return (
       materiaHoy.checked && (
         <MateriaItem
+          navigation={this.props.navigation}
           dia={materiaHoy}
           materia={data.materia}
           profesor={data.profesor}
+          data={data}
         />
       )
     )

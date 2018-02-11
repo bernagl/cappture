@@ -35,17 +35,21 @@ class Application extends React.Component {
     //   }
     // )
 
-    return (
+    return this.props.materias ? (
       <Container
-        style={{
-          marginTop: Platform.OS === 'android' ? 24 : 0
-        }}
+      // style={{
+      //   marginTop: Platform.OS === 'android' ? 24 : 0
+      // }}
       >
         {this.props.materias.length > 0 ? (
           <AppNavigation />
         ) : (
           <MateriaNavigation />
         )}
+      </Container>
+    ) : (
+      <Container>
+        <Text>Cargando...</Text>
       </Container>
     )
   }
