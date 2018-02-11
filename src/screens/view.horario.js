@@ -14,11 +14,6 @@ export default class Horario extends React.Component {
   render() {
     return (
       <Content>
-        <Header>
-          <Body>
-            <Title>Horario</Title>
-          </Body>
-        </Header>
         <Text>Horario</Text>
       </Content>
     )

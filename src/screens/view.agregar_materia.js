@@ -1,4 +1,7 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { agregarMateria } from '../actions/materia_actions'
+import { Alert } from 'react-native'
 import { TabNavigator } from 'react-navigation'
 import {
   Body,
@@ -20,28 +23,65 @@ import {
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import styles from '../styles'
 
-export default class AgregarMateria extends React.Component {
-  state = {
-    dias: [
-      { nombre: 'Lunes', horario: '8:00 a.m. a 9:00 a.m.', checked: false },
-      { nombre: 'Martes', horario: '8:00 a.m. a 9:00 a.m.', checked: false },
-      { nombre: 'Miércoles', horario: '8:00 a.m. a 9:00 a.m.', checked: false },
-      { nombre: 'Viernes', horario: '8:00 a.m. a 9:00 a.m.', checked: false },
-      { nombre: 'Sábado', horario: '8:00 a.m. a 9:00 a.m.', checked: false },
-      { nombre: 'Domingo', horario: '8:00 a.m. a 9:00 a.m.', checked: false }
-    ],
+const variables = { 
+  dias: [
+    { nombre: 'Lunes', inicio: '', fin: '', salon: '', edificio: '', checked: false },
+    { nombre: 'Martes', inicio: '', fin: '', salon: '', edificio: '', checked: false },
+    { nombre: 'Miercoles', label: 'Miércoles', inicio: '', fin: '', salon: '', edificio: '', checked: false },
+    { nombre: 'Jueves', inicio: '', fin: '', salon: '', edificio: '', checked: false },
+    { nombre: 'Viernes', inicio: '', fin: '', salon: '', edificio: '', checked: false },
+    { nombre: 'Sabado', label: 'Sábado', inicio: '', fin: '', salon: '', edificio: '', checked: false },
+    { nombre: 'Domingo', inicio: '', fin: '', salon: '', edificio: '', checked: false }
+  ],
     materia: '',
     profesor: ''
+}
+
+class AgregarMateria extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = { dias: [
+      { nombre: 'Lunes', inicio: '', fin: '', salon: '', edificio: '', checked: false },
+      { nombre: 'Martes', inicio: '', fin: '', salon: '', edificio: '', checked: false },
+      { nombre: 'Miercoles', label: 'Miércoles', inicio: '', fin: '', salon: '', edificio: '', checked: false },
+      { nombre: 'Jueves', inicio: '', fin: '', salon: '', edificio: '', checked: false },
+      { nombre: 'Viernes', inicio: '', fin: '', salon: '', edificio: '', checked: false },
+      { nombre: 'Sabado', label: 'Sábado', inicio: '', fin: '', salon: '', edificio: '', checked: false },
+      { nombre: 'Domingo', inicio: '', fin: '', salon: '', edificio: '', checked: false }
+      ], materia: '', profesor: '' }
+  }
+  static navigationOptions = {
+    title: 'Agregar materia'
+  }
+
+  agregarMateria = () => {
+    const { dias, materia, profesor } = this.state
+    let checkDias = dias.filter((dia) => dia.checked)
+    checkDias.length === 0 || !materia || !profesor  ? (alert('Por favor llena los campos requeridos')) :
+    this.props.agregarMateria(this.state)
+    this.setState({ dias: variables.dias , materia: '', profesor: '' })
+    // Alert.alert('...', '¿Deseas agregar otra materia?',
+    // [
+    //   {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+    //   {text: 'Si', onPress: () => console.log('OK Pressed')},
+    // ])
+  }
+
+  handleInput = (name, data) => {
+    this.setState({ [name]: data })
   }
 
   handleDia = i => {
     const dias = this.state.dias
-    dias[i].checked = !dias[i].checked
+    !dias[i].checked ?
+      this.props.navigation.navigate('MateriaDia', {
+        dia: dias[i],
+        dias,
+        update: this,
+        i
+      }) :
+    dias[i] = {...dias[i], checked: false, inicio: '', fin: '' }
     this.setState({ dias })
-  }
-
-  handleText = text => {
-
   }
 
   renderDias() {
@@ -50,37 +90,33 @@ export default class AgregarMateria extends React.Component {
         <ListItem key={key}>
           <CheckBox checked={dia.checked} onPress={() => this.handleDia(key)} />
           <Body>
-            <Text>{dia.nombre}</Text>
-            <Text>{dia.horario}</Text>
+            <Text>{dia.label ? dia.label : dia.nombre}</Text>
+            {!!dia.inicio && <Text>{`${dia.inicio} - ${dia.fin}`}</Text>}
           </Body>
         </ListItem>
       )
     })
   }
+
   render() {
     return (
-      <Container>
-        <Header>
-          <Body>
-            <Title>Agregar Materia</Title>
-          </Body>
-        </Header>
+      <Container style={{ backgroundColor: 'white' }}>
         <Content>
           <Form>
             <Item>
               <Label>Materia:</Label>
-              <Input />
+              <Input value={this.state.materia} onChangeText={(materia) => this.handleInput('materia' ,materia)} />
             </Item>
             <Item>
               <Label>Profesor:</Label>
-              <Input />
+              <Input value={this.state.profesor} onChangeText={(profesor) => this.handleInput('profesor' ,profesor)} />
             </Item>
             <ListItem itemDivider style={styles.mt20}>
               <Text>Días</Text>
             </ListItem>
             {this.renderDias()}
-            <Button block primary style={[styles.my10, styles.px10]}>
-              <Text>Guardar</Text>
+            <Button block primary onPress={this.agregarMateria} style={[styles.my10, styles.px10]}>
+              <Text>Agregar otra materia</Text>
             </Button>
           </Form>
         </Content>
@@ -88,3 +124,7 @@ export default class AgregarMateria extends React.Component {
     )
   }
 }
+
+const mapDispatchToProps = ({ materias }) => ({ materias })
+
+export default connect(mapDispatchToProps, { agregarMateria })(AgregarMateria)

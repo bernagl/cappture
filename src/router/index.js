@@ -1,4 +1,4 @@
-import AppNavigation from './router.app'
-import MateriaNavigation from './router.materia'
+import { AppNavigation, MateriaNavigation } from './router.app'
+// import MateriaNavigation from './router.materia'
 
-export { AppNavigation }
+export { AppNavigation, MateriaNavigation }
