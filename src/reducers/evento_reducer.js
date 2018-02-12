@@ -1,4 +1,8 @@
-import { AGREGAR_EVENTO, GET_EVENTOS } from '../actions/types'
+import {
+  AGREGAR_EVENTO,
+  GET_EVENTOS,
+  SET_EVENTO_CUMPLIDO
+} from '../actions/types'
 import { REHYDRATE, PURGE } from 'redux-persist'
 import moment from 'moment'
 
@@ -32,14 +36,20 @@ export default function(state = INITIAL_STATE, action) {
       //   console.warn(state)
       //   console.warn(filtroMateria)
       let materia = {}
-      console.warn(state)
       for (const id in state.data) {
         id === action.payload && (materia = state.data[id])
       }
 
       // console.warn('materia', materia)
-      return { ...state, materia: [...materia[action.payload]] }
+      return Object.keys(materia).length > 0
+        ? { ...state, materia: [...materia[action.payload]] }
+        : { ...state, materia: [] }
     //   revisar que que me hace el segundo filtro sobre los eventos que ya habia filtrado por eso ya no muestra nada
+    // case SET_EVENTO_CUMPLIDO:
+    //   state.data[action.payload.materia].map(evento => {
+
+    //   })
+    //   return
     case REHYDRATE:
       return action.payload.eventos || { data: {}, materia: [] }
     //   if (action.payload.eventos) {

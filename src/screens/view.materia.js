@@ -1,8 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getEventos } from '../actions/evento_actions'
-import { Dimensions, Platform, Text, View } from 'react-native'
-import { Body, Content, Header, Icon, Tab, Tabs, Title } from 'native-base'
+import { getEventos, setEventoCumplido } from '../actions/evento_actions'
+import { Dimensions, Platform, View } from 'react-native'
+import {
+  Body,
+  CheckBox,
+  Content,
+  Header,
+  Icon,
+  ListItem,
+  Tab,
+  Tabs,
+  Text,
+  Title
+} from 'native-base'
 import { TareaItem } from '../components'
 import moment from 'moment'
 
@@ -22,15 +33,26 @@ class Materia extends React.Component {
     this.props.getEventos(id)
   }
 
+  handleTarea = id => {}
+
   renderTareas = () => {
-    const { id } = this.props.navigation.state.params.data
-    return this.props.materia.map(evento => {
-      return (
-        <View>
-          <Text>{evento.nombre}</Text>
-          <Text>{moment(evento.fecha).format('lll')}</Text>
-          <Text>{evento.status}</Text>
-        </View>
+    let fecha
+    return this.props.materia.map((evento, key) => {
+      let divider = false
+      let current = moment(evento.fecha).format('lll')
+      !fecha && (fecha = current)
+      fecha !== current && ((divider = true), (fecha = current))
+      return divider ? (
+        <ListItem itemDivider>
+          <Text>{current}</Text>
+        </ListItem>
+      ) : (
+        <ListItem key={key}>
+          <CheckBox checked={evento.status} />
+          <Body>
+            <Text>{evento.nombre}</Text>
+          </Body>
+        </ListItem>
       )
     })
   }
@@ -47,7 +69,7 @@ class Materia extends React.Component {
             <Text>Aquí van a ir las fotos</Text>
           </Tab>
           <Tab heading="Tareas" style={{ height: SCREEN_HEIGHT }}>
-            {this.renderTareas()}
+            {this.props.materia && this.renderTareas()}
           </Tab>
         </Tabs>
       </Content>
@@ -57,4 +79,6 @@ class Materia extends React.Component {
 
 mapDispatchToProps = ({ eventos: { materia } }) => ({ materia })
 
-export default connect(mapDispatchToProps, { getEventos })(Materia)
+export default connect(mapDispatchToProps, { getEventos, setEventoCumplido })(
+  Materia
+)
