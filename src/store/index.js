@@ -7,7 +7,7 @@ import reducers from '../reducers'
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whiteList: ['materias']
+  whiteList: ['eventos', 'materias']
 }
 
 const reducer = persistReducer(persistConfig, reducers)

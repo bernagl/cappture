@@ -1,4 +1,5 @@
+import EventoForm from './eventoForm'
 import MateriaItem from './materiaItem'
 import TareaItem from './tareaItem'
 
-export { MateriaItem, TareaItem }
+export { EventoForm, MateriaItem, TareaItem }

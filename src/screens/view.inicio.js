@@ -41,7 +41,7 @@ class Inicio extends React.Component {
   }
 
   handleMateria(materia) {
-    console.warn(materia)
+    // console.warn(materia)
     // this.props.navigation.navigate('Materia', { materia })
   }
 
@@ -70,21 +70,23 @@ class Inicio extends React.Component {
           dia={materiaHoy}
           materia={data.materia}
           profesor={data.profesor}
-          data={data}
+          data={{ ...materiaHoy, ...data }}
         />
       )
     )
   }
 
   render() {
-    // console.warn(this.props.materias)
     return this.props.materias.length > 0 ? (
       <Content>
         <List
           dataSource={this.ds.cloneWithRows(this.props.materias)}
           renderRow={data => this.renderMaterias(data)}
           renderLeftHiddenRow={data => (
-            <Button full onPress={() => alert(data)}>
+            <Button
+              full
+              onPress={() => this.props.navigation.navigate('Evento')}
+            >
               <Icon active name="information-circle" />
             </Button>
           )}
@@ -92,7 +94,7 @@ class Inicio extends React.Component {
             <Button
               full
               danger
-              onPress={_ => this.deleteRow(secId, rowId, rowMap)}
+              onPress={() => this.props.navigation.navigate('Evento', { data })}
             >
               <Icon active name="trash" />
             </Button>

@@ -61,7 +61,7 @@ export default class MateriaDia extends Component {
               <Label>Inicio:</Label>
               <Input
                 value={this.state.inicio}
-                onChangeText={inicio => this.setState({ inicio })}
+                // onChangeText={inicio => this.setState({ inicio })}
                 name="inicio"
                 onFocus={() => this.handleTimePicker('inicio')}
               />
@@ -70,7 +70,7 @@ export default class MateriaDia extends Component {
               <Label>Fin:</Label>
               <Input
                 value={this.state.fin}
-                onChangeText={fin => this.setState({ fin })}
+                // onChangeText={fin => this.setState({ fin })}
                 name="fin"
                 onFocus={() => this.handleTimePicker('fin')}
               />

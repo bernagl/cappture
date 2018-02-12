@@ -4,7 +4,8 @@ import { REHYDRATE, PURGE } from 'redux-persist'
 export default function(state = [], action) {
   switch (action.type) {
     case AGREGAR_MATERIA:
-      return [...state, action.payload]
+      const id = Math.random().toString(36).substr(2, 9)
+      return [{ id: id, ...action.payload } , ...state]
     case GET_MATERIA:
       return state.find(materia => materia.nombre === action.payload)
     case REHYDRATE:

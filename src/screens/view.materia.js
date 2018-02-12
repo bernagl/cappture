@@ -1,14 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getMateria } from '../actions/materia_actions'
+import { getEventos } from '../actions/evento_actions'
 import { Dimensions, Platform, Text, View } from 'react-native'
 import { Body, Content, Header, Icon, Tab, Tabs, Title } from 'native-base'
 import { TareaItem } from '../components'
+import moment from 'moment'
 
 const SCREEN_WIDTH = Dimensions.get('window').width
 const SCREEN_HEIGHT = Dimensions.get('window').height
 
-export default class Materia extends React.Component {
+class Materia extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { data } = navigation.state.params
     return {
@@ -16,7 +17,26 @@ export default class Materia extends React.Component {
     }
   }
 
+  componentWillMount() {
+    const { id } = this.props.navigation.state.params.data
+    this.props.getEventos(id)
+  }
+
+  renderTareas = () => {
+    const { id } = this.props.navigation.state.params.data
+    return this.props.materia.map(evento => {
+      return (
+        <View>
+          <Text>{evento.nombre}</Text>
+          <Text>{moment(evento.fecha).format('lll')}</Text>
+          <Text>{evento.status}</Text>
+        </View>
+      )
+    })
+  }
+
   render() {
+    console.warn('...sasa', this.props.materia)
     return (
       <Content>
         <Tabs
@@ -27,7 +47,7 @@ export default class Materia extends React.Component {
             <Text>Aquí van a ir las fotos</Text>
           </Tab>
           <Tab heading="Tareas" style={{ height: SCREEN_HEIGHT }}>
-            <Text>Aquí van a ir las tareas</Text>
+            {this.renderTareas()}
           </Tab>
         </Tabs>
       </Content>
@@ -35,6 +55,6 @@ export default class Materia extends React.Component {
   }
 }
 
-// mapDispatchToProps = ({ materias }) => ({ materias })
+mapDispatchToProps = ({ eventos: { materia } }) => ({ materia })
 
-// export default connect(mapDispatchToProps, { getMateria })(Materia)
+export default connect(mapDispatchToProps, { getEventos })(Materia)
