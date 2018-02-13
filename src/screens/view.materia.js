@@ -30,46 +30,51 @@ class Materia extends React.Component {
 
   componentWillMount() {
     const { id } = this.props.navigation.state.params.data
-    this.props.getEventos(id)
+    // this.props.getEventos(id)
   }
 
   handleTarea = id => {}
 
   renderTareas = () => {
     let fecha
-    return this.props.materia.map((evento, key) => {
+    let isNew = false
+    const { id } = this.props.navigation.state.params.data
+    return this.props.eventos.map((evento, key) => {
+      if (evento.id_materia !== id) return
       let divider = false
-      let current = moment(evento.fecha).format('lll')
-      !fecha && (fecha = current)
+      let current = moment(evento.fecha).format('l')
+      !fecha ? ((fecha = current), (isNew = true)) : (isNew = false)
       fecha !== current && ((divider = true), (fecha = current))
-      return divider ? (
-        <ListItem itemDivider>
-          <Text>{current}</Text>
-        </ListItem>
-      ) : (
-        <ListItem key={key}>
-          <CheckBox checked={evento.status} />
-          <Body>
-            <Text>{evento.nombre}</Text>
-          </Body>
-        </ListItem>
+      return (
+        <React.Fragment key={key}>
+          {(divider || isNew) && (
+            <ListItem itemDivider>
+              <Text>{moment(evento.fecha).format('LL')}</Text>
+            </ListItem>
+          )}
+          <ListItem key={key}>
+            <CheckBox checked={evento.status} />
+            <Body>
+              <Text>{evento.nombre}</Text>
+            </Body>
+          </ListItem>
+        </React.Fragment>
       )
     })
   }
 
   render() {
-    console.warn('...sasa', this.props.materia)
     return (
       <Content>
         <Tabs
           initialPage={0}
           // style={{ position: 'absolute', top: 50, right: 0, left: 0 }}
         >
-          <Tab heading="Fotos" style={{ height: SCREEN_HEIGHT }}>
+          <Tab heading="Fotos">
             <Text>Aquí van a ir las fotos</Text>
           </Tab>
-          <Tab heading="Tareas" style={{ height: SCREEN_HEIGHT }}>
-            {this.props.materia && this.renderTareas()}
+          <Tab heading="Tareas">
+            {this.props.eventos && this.renderTareas()}
           </Tab>
         </Tabs>
       </Content>
@@ -77,7 +82,7 @@ class Materia extends React.Component {
   }
 }
 
-mapDispatchToProps = ({ eventos: { materia } }) => ({ materia })
+mapDispatchToProps = ({ eventos }) => ({ eventos })
 
 export default connect(mapDispatchToProps, { getEventos, setEventoCumplido })(
   Materia

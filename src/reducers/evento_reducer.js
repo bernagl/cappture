@@ -6,30 +6,31 @@ import {
 import { REHYDRATE, PURGE } from 'redux-persist'
 import moment from 'moment'
 
-const INITIAL_STATE = {
-  data: {},
-  materia: []
-}
+// const INITIAL_STATE = {
+//   data: {},
+//   materia: []
+// }
 
-export default function(state = INITIAL_STATE, action) {
+export default function(state = [], action) {
   switch (action.type) {
     case AGREGAR_EVENTO:
-      // console.warn(state)
-      const eventosMateria = state.data[action.payload.id] || {}
-      const eventos = [...eventosMateria, action.payload.evento]
+      // const eventosMateria = state.data[action.payload.id] || {}
+      // const eventos = [...eventosMateria, action.payload.evento]
+      const eventos = [...state, action.payload]
       eventos.sort((a, b) => {
-        return new Date(b.fecha) - new Date(a.fecha)
+        return new Date(a.fecha) - new Date(b.fecha)
       })
-      const data = {
-        [action.payload.id]: eventos
-      }
-      return {
-        ...state,
-        data: { ...state.data, [action.payload.id]: data }
-      }
+      console.log(state)
+      // const data = {
+      //   [action.payload.id]: eventos
+      // }
+      // return {
+      //   ...state,
+      //   data: { ...state.data, [action.payload.id]: data }
+      // }
 
-      return state
-    //   return { ...state, [action.payload.id]: eventos }
+      // return state
+      return eventos
     case GET_EVENTOS:
       //   const filtroMateria = state.find(id => id === payload.id)
       //   const filtroMateria = Object.entries(state)
@@ -51,7 +52,7 @@ export default function(state = INITIAL_STATE, action) {
     //   })
     //   return
     case REHYDRATE:
-      return action.payload.eventos || { data: {}, materia: [] }
+      return action.payload.eventos || []
     //   if (action.payload.eventos) {
     //     return action.payload.eventos
     //   }

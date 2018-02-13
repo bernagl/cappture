@@ -1,4 +1,5 @@
 import { AGREGAR_EVENTO, GET_EVENTOS, SET_EVENTO_CUMPLIDO } from './types'
+import { PURGE } from 'redux-persist'
 
 export const agregarEvento = evento => dispatch => {
   dispatch({ type: AGREGAR_EVENTO, payload: evento })

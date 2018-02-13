@@ -75,14 +75,12 @@ class Evento extends React.Component {
     const { id } = this.props.navigation.state.params.data
     const { eventos, fecha, nombre, notificacion, tipo } = this.state
     const evento = {
-      id,
-      evento: {
-        nombre,
-        fecha,
-        notificacion,
-        tipo: eventos[tipo],
-        status: false
-      }
+      id_materia: id,
+      nombre,
+      fecha,
+      notificacion,
+      tipo: eventos[tipo],
+      status: false
     }
     // console.warn(evento)
     this.props.agregarEvento(evento)
