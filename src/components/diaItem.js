@@ -4,7 +4,7 @@ import { TouchableOpacity, View } from 'react-native'
 
 export default ({ dia, navigation }) => {
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Inicio', { dia })}>
+    <TouchableOpacity onPress={() => navigation.navigate('DiaView', { dia })}>
       <CardItem
         style={{
           flex: 1,

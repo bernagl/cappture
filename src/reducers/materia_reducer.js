@@ -23,11 +23,11 @@ export default function(state = [], action) {
     case GET_MATERIA:
       return state.find(materia => materia.nombre === action.payload)
     case REHYDRATE:
-      // return action.payload.materias || []
-      if (action.payload) {
-        return action.payload.materias
-      }
-      return []
+      return action.payload.materias || []
+      // if (action.payload) {
+      //   return action.payload.materias
+      // }
+      // return []
     case PURGE:
       return {}
     default:

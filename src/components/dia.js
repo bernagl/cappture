@@ -1,5 +1,4 @@
 import React from 'react'
-import { TabNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import { ListView, View } from 'react-native'
@@ -18,23 +17,11 @@ import 'moment/locale/es.js'
 moment.locale('es')
 let hoy = moment().format('dddd')
 
-class Inicio extends React.Component {
+class Dia extends React.Component {
   constructor(props) {
     super(props)
     this.state = { hoy: '', listViewData: [] }
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
-  }
-
-  static navigationOptions = ({ navigation }) => {
-    const { dia } = navigation.state.params || false
-    hoy = dia ? dia : moment().format('dddd')
-    return {
-      title:
-        hoy === 'Sabado' ? 'Sábado' : hoy === 'Miercoles' ? 'Miércoles' : hoy,
-      tabBarIcon: ({ tintColor }) => {
-        return <Icon name="menu" color={tintColor} />
-      }
-    }
   }
 
   deleteRow(secId, rowId, rowMap) {
@@ -45,7 +32,8 @@ class Inicio extends React.Component {
   }
 
   renderMaterias = data => {
-    console.warn(hoy)
+    const { dia } = this.props
+    hoy = dia ? dia : hoy
     const materiaHoy = data.dias.find(dia => dia.nombre === hoy && dia.checked)
     return (
       materiaHoy && (
@@ -99,4 +87,4 @@ class Inicio extends React.Component {
 
 const MapDispatchToProps = ({ materias }) => ({ materias })
 
-export default connect(MapDispatchToProps)(Inicio)
+export default connect(MapDispatchToProps)(Dia)
