@@ -5,13 +5,13 @@ import { Body, Content, Header, Icon, Title } from 'native-base'
 import { DiaItem } from '../components'
 
 const dias = [
-  'Lunes',
-  'Martes',
-  'Miercoles',
-  'Jueves',
-  'Viernes',
-  'Sabado',
-  'Domingo'
+  { nombre: 'Lunes' },
+  { nombre: 'Martes' },
+  { nombre: 'Miercoles', label: 'Miércoles' },
+  { nombre: 'Jueves' },
+  { nombre: 'Viernes' },
+  { nombre: 'Sabado', label: 'Sábado' },
+  { nombre: 'Domingo' }
 ]
 
 export default class Horario extends React.Component {
@@ -23,7 +23,9 @@ export default class Horario extends React.Component {
   }
 
   renderDias() {
-    return dias.map(dia => <DiaItem dia={dia} navigation={this.props.navigation} />)
+    return dias.map((dia, key) => (
+      <DiaItem dia={dia} navigation={this.props.navigation} key={key} />
+    ))
   }
 
   render() {

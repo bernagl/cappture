@@ -13,7 +13,7 @@ export default ({ dia, navigation }) => {
           borderBottomColor: '#05A5D1'
         }}
       >
-        <H3 style={{ flex: 1 }}>{dia}</H3>
+        <H3 style={{ flex: 1 }}>{dia.label ? dia.label : dia.nombre}</H3>
       </CardItem>
     </TouchableOpacity>
   )

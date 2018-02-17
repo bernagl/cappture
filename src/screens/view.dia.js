@@ -1,29 +1,14 @@
 import React from 'react'
-import { TabNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import { ListView, View } from 'react-native'
-import {
-  Content,
-  Button,
-  Icon,
-  List,
-  ListItem,
-  Text,
-  Body,
-  Title
-} from 'native-base'
-import { Dia, MateriaItem } from '../components'
+import { Icon } from 'native-base'
+import { Dia } from '../components'
 import 'moment/locale/es.js'
 moment.locale('es')
 let hoy = moment().format('dddd')
 
 class DiaView extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { hoy: '', listViewData: [] }
-    this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
-  }
+  state = { hoy: '', listViewData: [] }
 
   static navigationOptions = ({ navigation }) => {
     const { dia } = navigation.state.params || false
@@ -31,7 +16,7 @@ class DiaView extends React.Component {
       ? dia
       : hoy === 'Sabado' ? 'Sábado' : hoy === 'Miercoles' ? 'Miércoles' : hoy
     return {
-      title: hoy,
+      title: dia.label ? dia.label : dia.nombre,
       tabBarIcon: ({ tintColor }) => {
         return <Icon name="menu" color={tintColor} />
       }

@@ -33,7 +33,7 @@ class Dia extends React.Component {
 
   renderMaterias = data => {
     const { dia } = this.props
-    hoy = dia ? dia : hoy
+    hoy = dia.nombre ? dia.nombre : hoy
     const materiaHoy = data.dias.find(dia => dia.nombre === hoy && dia.checked)
     return (
       materiaHoy && (
