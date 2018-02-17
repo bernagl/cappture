@@ -37,6 +37,7 @@ class Application extends React.Component {
 
     return this.props.materias ? (
       <Container
+      style={{ backgroundColor: 'white' }}
       // style={{
       //   marginTop: Platform.OS === 'android' ? 24 : 0
       // }}

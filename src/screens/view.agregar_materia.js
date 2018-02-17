@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { agregarMateria } from '../actions/materia_actions'
+import { actualizarMateria, agregarMateria } from '../actions/materia_actions'
 import { Alert } from 'react-native'
 import { TabNavigator } from 'react-navigation'
 import {
@@ -50,17 +50,25 @@ class AgregarMateria extends React.Component {
       { nombre: 'Domingo', inicio: '', fin: '', salon: '', edificio: '', checked: false }
       ], materia: '', profesor: '' }
   }
+
   static navigationOptions = {
     title: 'Agregar materia'
   }
 
+  componentDidMount(){
+    const { data } = this.props.navigation.state.params || false
+    console.warn(this.props.navigation)
+    data && this.setState({ ...data })
+  }
+
   agregarMateria = () => {
-    const { dias, materia, profesor } = this.state
+    const { id, dias, materia, profesor } = this.state
     let checkDias = dias.filter((dia) => dia.checked)
+    console.warn(this.state)
     checkDias.length === 0 || !materia || !profesor  ? (alert('Por favor llena los campos requeridos')) :
-    this.props.agregarMateria(this.state)
+    id ? this.props.actualizarMateria(this.state) : this.props.agregarMateria(this.state)
     this.setState({ dias: variables.dias , materia: '', profesor: '' })
-    // Alert.alert('...', '¿Deseas agregar otra materia?',
+    // Alert.alert('...', '¿Deseas agregar <otra></otra> materia?',
     // [
     //   {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
     //   {text: 'Si', onPress: () => console.log('OK Pressed')},
@@ -127,4 +135,4 @@ class AgregarMateria extends React.Component {
 
 const mapDispatchToProps = ({ materias }) => ({ materias })
 
-export default connect(mapDispatchToProps, { agregarMateria })(AgregarMateria)
+export default connect(mapDispatchToProps, { actualizarMateria, agregarMateria })(AgregarMateria)

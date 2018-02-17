@@ -16,7 +16,7 @@ import {
 import { MateriaItem } from '../components'
 import 'moment/locale/es.js'
 moment.locale('es')
-const hoy = moment().format('dddd')
+let hoy = moment().format('dddd')
 
 class Inicio extends React.Component {
   constructor(props) {
@@ -25,11 +25,17 @@ class Inicio extends React.Component {
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
   }
 
-  static navigationOptions = {
-    title:
-      hoy === 'Sabado' ? 'Sábado' : hoy === 'Miercoles' ? 'Miércoles' : hoy,
-    tabBarIcon: ({ tintColor }) => {
-      return <Icon name="menu" color={tintColor} />
+
+  static navigationOptions = ({ navigation }) => {
+    const { dia } = navigation.state.params || false
+    hoy = dia
+      ? dia
+      : hoy === 'Sabado' ? 'Sábado' : hoy === 'Miercoles' ? 'Miércoles' : hoy
+    return {
+      title: hoy,
+      tabBarIcon: ({ tintColor }) => {
+        return <Icon name="menu" color={tintColor} />
+      }
     }
   }
 
@@ -39,27 +45,6 @@ class Inicio extends React.Component {
     newData.splice(rowId, 1)
     this.setState({ listViewData: newData })
   }
-
-  handleMateria(materia) {
-    // console.warn(materia)
-    // this.props.navigation.navigate('Materia', { materia })
-  }
-
-  // renderMaterias = () => {
-  //   return this.props.materias.map((materia, key) => {
-  //     const materiaHoy = materia.dias.find(dia => dia.nombre === hoy)
-  //     console.warn('materiahoy', materiaHoy)
-  //     return (
-  //       materiaHoy.checked && (
-  //         <MateriaItem
-  //           dia={materiaHoy}
-  //           materia={materia.materia}
-  //           profesor={materia.profesor}
-  //         />
-  //       )
-  //     )
-  //   })
-  // }
 
   renderMaterias = data => {
     const materiaHoy = data.dias.find(dia => dia.nombre === hoy)
@@ -85,7 +70,9 @@ class Inicio extends React.Component {
           renderLeftHiddenRow={data => (
             <Button
               full
-              onPress={() => this.props.navigation.navigate('Evento')}
+              onPress={() =>
+                this.props.navigation.navigate('AgregarMateria', { data })
+              }
             >
               <Icon active name="information-circle" />
             </Button>

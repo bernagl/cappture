@@ -1,5 +1,6 @@
 // Materias
 export const AGREGAR_MATERIA = 'agregar_materia'
+export const ACTUALIZAR_MATERIA = 'actualizr_materia'
 export const GET_MATERIA = 'get_materia'
 
 // Eventos
