@@ -65,7 +65,8 @@ class AgregarMateria extends React.Component {
     let checkDias = dias.filter((dia) => dia.checked)
     console.warn(this.state)
     checkDias.length === 0 || !materia || !profesor  ? (alert('Por favor llena los campos requeridos')) :
-    id ? this.props.actualizarMateria(this.state) : this.props.agregarMateria(this.state)
+    id ? (this.props.actualizarMateria(this.state), 
+    this.props.navigation.goBack()) : this.props.agregarMateria(this.state)
     this.setState({ dias: variables.dias , materia: '', profesor: '' })
     // Alert.alert('...', '¿Deseas agregar <otra></otra> materia?',
     // [
