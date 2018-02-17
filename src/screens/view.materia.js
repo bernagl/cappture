@@ -6,6 +6,7 @@ import {
   Body,
   CheckBox,
   Content,
+  Fab,
   Header,
   Icon,
   ListItem,
@@ -64,6 +65,7 @@ class Materia extends React.Component {
   }
 
   render() {
+    const { data } = this.props.navigation.state.params
     return (
       <Content>
         <Tabs
@@ -75,6 +77,12 @@ class Materia extends React.Component {
           </Tab>
           <Tab heading="Tareas">
             {this.props.eventos && this.renderTareas()}
+            <Fab
+              position="bottomRight"
+              onPress={() => this.props.navigation.navigate('Evento', { data })}
+            >
+              <Icon name="add" />
+            </Fab>
           </Tab>
         </Tabs>
       </Content>
