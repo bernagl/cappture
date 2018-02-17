@@ -9,7 +9,7 @@ import { AgregarMateria, Horario, Inicio, MateriaDia, Perfil } from './screens'
 class Application extends React.Component {
   render() {
     return this.props.materias ? (
-      <Container style={{ backgroundColor: 'white' }}>
+      <Container>
         {this.props.materias.length > 0 ? (
           <AppNavigation />
         ) : (

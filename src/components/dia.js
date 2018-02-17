@@ -13,6 +13,7 @@ import {
   Title
 } from 'native-base'
 import { MateriaItem } from '../components'
+import styles from '../styles'
 import 'moment/locale/es.js'
 moment.locale('es')
 let hoy = moment().format('dddd')
@@ -50,7 +51,7 @@ class Dia extends React.Component {
 
   render() {
     return this.props.materias.length > 0 ? (
-      <Content>
+      <Content style={styles.deviceHeight}>
         <List
           dataSource={this.ds.cloneWithRows(this.props.materias)}
           renderRow={data => this.renderMaterias(data)}

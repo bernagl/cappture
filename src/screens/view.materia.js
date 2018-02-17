@@ -17,9 +17,7 @@ import {
 } from 'native-base'
 import { TareaItem } from '../components'
 import moment from 'moment'
-
-const SCREEN_WIDTH = Dimensions.get('window').width
-const SCREEN_HEIGHT = Dimensions.get('window').height
+import styles from '../styles'
 
 class Materia extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -72,12 +70,15 @@ class Materia extends React.Component {
           initialPage={0}
           // style={{ position: 'absolute', top: 50, right: 0, left: 0 }}
         >
-          <Tab heading="Fotos">
+          <Tab heading="Fotos" style={styles.deviceHeight}>
             <Text>Aquí van a ir las fotos</Text>
           </Tab>
-          <Tab heading="Tareas">
+          <Tab heading="Tareas" style={styles.deviceHeight}>
             {this.props.eventos && this.renderTareas()}
             <Fab
+              style={{
+                backgroundColor: '#403a74'
+              }}
               position="bottomRight"
               onPress={() => this.props.navigation.navigate('Evento', { data })}
             >

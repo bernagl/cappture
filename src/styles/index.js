@@ -1,4 +1,7 @@
-import { StyleSheet } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native'
+
+const SCREEN_WIDTH = Dimensions.get('window').width
+const SCREEN_HEIGHT = Dimensions.get('window').height
 
 export default StyleSheet.create({
   mt20: { marginTop: 20 },
@@ -18,6 +21,7 @@ export default StyleSheet.create({
     borderRadius: 50,
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-  }
+    justifyContent: 'center'
+  },
+  deviceHeight: { minHeight: SCREEN_HEIGHT - 110, backgroundColor: 'white' }
 })

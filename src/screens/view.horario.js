@@ -3,6 +3,7 @@ import { TabNavigator } from 'react-navigation'
 import { Text, View } from 'react-native'
 import { Body, Content, Header, Icon, Title } from 'native-base'
 import { DiaItem } from '../components'
+import styles from '../styles'
 
 const dias = [
   { nombre: 'Lunes' },
@@ -29,6 +30,6 @@ export default class Horario extends React.Component {
   }
 
   render() {
-    return <Content>{this.renderDias()}</Content>
+    return <Content style={styles.deviceHeight}>{this.renderDias()}</Content>
   }
 }
