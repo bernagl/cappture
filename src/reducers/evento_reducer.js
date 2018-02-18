@@ -20,7 +20,6 @@ export default function(state = [], action) {
       eventos.sort((a, b) => {
         return new Date(a.fecha) - new Date(b.fecha)
       })
-      console.log(state)
       // const data = {
       //   [action.payload.id]: eventos
       // }

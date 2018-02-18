@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import { Icon } from 'native-base'
+import { Fab, Icon } from 'native-base'
 import { Dia } from '../components'
 import 'moment/locale/es.js'
 moment.locale('es')
@@ -21,7 +21,14 @@ class Inicio extends React.Component {
   }
 
   render() {
-    return <Dia dia={hoy} navigation={this.props.navigation} />
+    return (
+      <React.Fragment>
+        <Dia dia={hoy} navigation={this.props.navigation} />
+        <Fab position="bottomRight" style={{ backgroundColor: '#ff7675' }}>
+          <Icon name="camera" />
+        </Fab>
+      </React.Fragment>
+    )
   }
 }
 
