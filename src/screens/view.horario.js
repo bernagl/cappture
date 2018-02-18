@@ -25,7 +25,7 @@ export default class Horario extends React.Component {
 
   renderDias() {
     return dias.map((dia, key) => (
-      <DiaItem dia={dia} navigation={this.props.navigation} key={key} />
+      <DiaItem dia={dia.nombre} navigation={this.props.navigation} key={key} />
     ))
   }
 

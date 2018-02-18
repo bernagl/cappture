@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "cappture",
-    "description": "This project is really great.",
+    "name": "Cappture",
+    "description": "Enjoy your subjects.",
     "slug": "cappture",
     "privacy": "public",
     "sdkVersion": "25.0.0",
@@ -16,6 +16,9 @@
     },
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.example.luisgarcia.cappture"
     }
   }
 }

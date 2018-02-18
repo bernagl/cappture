@@ -11,6 +11,7 @@ class Inicio extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { dia } = navigation.state.params || false
     hoy = dia ? dia : moment().format('dddd')
+    hoy = hoy === 'sábado' ? 'Sabado' : hoy === 'miércoles' ? 'Miercoles' : hoy
     return {
       title:
         hoy === 'Sabado' ? 'Sábado' : hoy === 'Miercoles' ? 'Miércoles' : hoy,
