@@ -3,6 +3,7 @@ import { TabNavigator } from 'react-navigation'
 import { TouchableOpacity, View } from 'react-native'
 import { connect } from 'react-redux'
 import DateTimePicker from 'react-native-modal-datetime-picker'
+import Toast from 'react-native-root-toast';
 import moment from 'moment'
 import { agregarEvento } from '../actions/evento_actions'
 import {
@@ -41,7 +42,7 @@ class Evento extends React.Component {
     tipo: 2,
     eventos: [
       { nombre: 'Exámen', key: 0 },
-      { nombre: 'Expocisión', key: 1 },
+      { nombre: 'Exposición', key: 1 },
       { nombre: 'Tarea', key: 2 },
       { nombre: 'Otro', key: 3 }
     ],
@@ -84,6 +85,8 @@ class Evento extends React.Component {
     }
     // console.warn(evento)
     this.props.agregarEvento(evento)
+    this.props.navigation.goBack()
+    Toast.show('Evento agregado')
   }
 
   render() {
@@ -99,7 +102,7 @@ class Evento extends React.Component {
               onValueChange={value => this.handleTipo(value)}
             >
               <Picker.Item label="Exámen" value={0} />
-              <Picker.Item label="Expocisión" value={1} />
+              <Picker.Item label="Exposición" value={1} />
               <Picker.Item label="Tarea" value={2} />
               <Picker.Item label="Otro" value={3} />
             </Picker>

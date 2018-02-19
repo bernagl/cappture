@@ -10,12 +10,13 @@ export default ({ data, navigation }) => {
           flex: 1,
           flexDirection: 'column',
           alignItems: 'flex-start',
-          borderBottomColor: '#05A5D1'
+          backgroundColor: data.color,
+          borderRadius: 0
         }}
       >
-        <H3 style={{ flex: 1 }}>{data.materia}</H3>
-        <Text style={{ flex: 1 }}>{`${data.inicio} a ${data.fin}`}</Text>
-        <Text style={{ flex: 1 }}>{data.profesor}</Text>
+        <H3 style={{ flex: 1, color: 'white' }}>{data.materia}</H3>
+        <Text style={{ flex: 1, color: 'white' }}>{`${data.inicio} a ${data.fin}`}</Text>
+        <Text style={{ flex: 1, color: 'white' }}>{data.profesor}</Text>
       </CardItem>
     </TouchableOpacity>
   )

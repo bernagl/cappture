@@ -12,10 +12,8 @@ class Inicio extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { dia } = navigation.state.params || false
     hoy = dias[moment().day()]
-    // hoy = hoy === 'sábado' ? 'Sabado' : hoy === 'miércoles' ? 'Miercoles' : hoy
     return {
       title: hoy.original,
-      // hoy === 'Sabado' ? 'Sábado' : hoy === 'Miercoles' ? 'Miércoles' : hoy,
       tabBarIcon: ({ tintColor }) => {
         return <Icon name="menu" color={tintColor} />
       }

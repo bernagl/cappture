@@ -34,7 +34,8 @@ const variables = {
     { nombre: 'Domingo', inicio: '', fin: '', salon: '', edificio: '', checked: false }
   ],
     materia: '',
-    profesor: ''
+    profesor: '',
+    color: '#fff'
 }
 
 class AgregarMateria extends React.Component {
@@ -48,7 +49,7 @@ class AgregarMateria extends React.Component {
       { nombre: 'Viernes', inicio: '', fin: '', salon: '', edificio: '', checked: false },
       { nombre: 'Sabado', label: 'Sábado', inicio: '', fin: '', salon: '', edificio: '', checked: false },
       { nombre: 'Domingo', inicio: '', fin: '', salon: '', edificio: '', checked: false }
-      ], materia: '', profesor: '' }
+      ], materia: '', profesor: '', color: '#fff' }
   }
 
   static navigationOptions = {
@@ -66,12 +67,7 @@ class AgregarMateria extends React.Component {
     checkDias.length === 0 || !materia || !profesor  ? (alert('Por favor llena los campos requeridos')) :
     id ? (this.props.actualizarMateria(this.state), 
     this.props.navigation.goBack()) : this.props.agregarMateria(this.state)
-    this.setState({ dias: variables.dias , materia: '', profesor: '' })
-    // Alert.alert('...', '¿Deseas agregar <otra></otra> materia?',
-    // [
-    //   {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-    //   {text: 'Si', onPress: () => console.log('OK Pressed')},
-    // ])
+    this.setState({ dias: variables.dias , materia: '', profesor: '', color: '' })
   }
 
   handleInput = (name, data) => {
@@ -89,6 +85,10 @@ class AgregarMateria extends React.Component {
       }) :
     dias[i] = {...dias[i], checked: false, inicio: '', fin: '' }
     this.setState({ dias })
+  }
+
+  handleColor = () => {
+      this.props.navigation.navigate('ColorPicker', { update: this })
   }
 
   renderDias() {
@@ -117,6 +117,11 @@ class AgregarMateria extends React.Component {
             <Item>
               <Label>Profesor:</Label>
               <Input value={this.state.profesor} onChangeText={(profesor) => this.handleInput('profesor' ,profesor)} />
+            </Item>
+            <Item>
+              <Label>Color:</Label>
+              <Input value={this.state.color} onFocus={this.handleColor}  
+              style={{ color: this.state.color }}/>
             </Item>
             <ListItem itemDivider style={styles.mt20}>
               <Text>Días</Text>

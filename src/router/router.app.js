@@ -1,6 +1,7 @@
 import { StackNavigator, TabBarBottom, TabNavigator } from 'react-navigation'
 import {
   AgregarMateria,
+  ColorPicker,
   DiaView,
   Evento,
   Horario,
@@ -33,15 +34,17 @@ export const AppNavigation = StackNavigator(
       )
     },
     AgregarMateria: { screen: AgregarMateria },
-    MateriaDia: { screen: MateriaDia },
+    ColorPicker: { screen: ColorPicker },
     DiaView: { screen: DiaView },
+    Evento: { screen: Evento },
     Materia: { screen: Materia },
-    Evento: { screen: Evento }
+    MateriaDia: { screen: MateriaDia }
   },
   { initialRouteName: 'Application' }
 )
 
 export const MateriaNavigation = StackNavigator({
   AgregarMateria: { screen: AgregarMateria },
+  ColorPicker: { screen: ColorPicker },
   MateriaDia: { screen: MateriaDia }
 })
