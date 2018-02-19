@@ -3,17 +3,8 @@ import { TabNavigator } from 'react-navigation'
 import { Text, View } from 'react-native'
 import { Body, Content, Header, Icon, Title } from 'native-base'
 import { DiaItem } from '../components'
+import dias from '../actions/variables'
 import styles from '../styles'
-
-const dias = [
-  { nombre: 'Lunes' },
-  { nombre: 'Martes' },
-  { nombre: 'Miercoles', label: 'Miércoles' },
-  { nombre: 'Jueves' },
-  { nombre: 'Viernes' },
-  { nombre: 'Sabado', label: 'Sábado' },
-  { nombre: 'Domingo' }
-]
 
 export default class Horario extends React.Component {
   static navigationOptions = {
@@ -25,7 +16,7 @@ export default class Horario extends React.Component {
 
   renderDias() {
     return dias.map((dia, key) => (
-      <DiaItem dia={dia.nombre} navigation={this.props.navigation} key={key} />
+      <DiaItem dia={dia} navigation={this.props.navigation} key={key} />
     ))
   }
 

@@ -4,7 +4,9 @@ import { TouchableOpacity, View } from 'react-native'
 
 export default ({ dia, navigation }) => {
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('DiaView', { dia })}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('DiaView', { dia: dia.dia })}
+    >
       <CardItem
         style={{
           flex: 1,
@@ -13,11 +15,7 @@ export default ({ dia, navigation }) => {
           borderBottomColor: '#05A5D1'
         }}
       >
-        <H3 style={{ flex: 1 }}>
-          {dia === 'Sabado'
-            ? 'Sábado'
-            : dia === 'Miercoles' ? 'Miércoles' : dia}
-        </H3>
+        <H3 style={{ flex: 1 }}>{dia.original ? dia.original : dia.dia}</H3>
       </CardItem>
     </TouchableOpacity>
   )
