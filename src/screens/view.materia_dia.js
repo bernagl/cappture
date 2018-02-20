@@ -49,6 +49,7 @@ export default class MateriaDia extends Component {
   confirm = date => {
     const hora = moment(date).format('LT')
     // hora > '7:32 PM' ? console.log(hora) : console.log('7:31 PM')
+    console.warn(date)
     this.setState({ [this.state.selected]: hora, showTimePicker: false })
   }
 

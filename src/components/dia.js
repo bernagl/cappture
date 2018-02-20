@@ -25,6 +25,36 @@ class Dia extends React.Component {
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
   }
 
+  diaNumero(dia) {
+    switch (dia) {
+      case 'Domingo':
+        return 0
+      case 'Lunes':
+        return 1
+      case 'Martes':
+        return 2
+      case 'Miercoles':
+        return 3
+      case 'Jueves':
+        return 4
+      case 'Viernes':
+        return 5
+      case 'Sabado':
+        return 6
+    }
+  }
+
+  // componentDidMount() {
+  //   let { dia, materias } = this.props
+  //   dia = dia ? dia : hoy
+    // let diaNumero = this.diaNumero(dia)
+    // this.props.materias.sort((a, b) => {
+    //   console.warn(a.dias[diaNumero].inicio)
+    //   return new Date(a.dias[diaNumero].inicio) - new Date(b.dias[diaNumero].inicio)
+    // })
+    // console.warn(materias)    
+  // }
+
   deleteRow(secId, rowId, rowMap) {
     rowMap[`${secId}${rowId}`].props.closeRow()
     const newData = [...this.state.listViewData]

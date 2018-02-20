@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import { Button, Content, Text } from 'native-base'
-// import { ColorWheel } from 'react-native-color-wheel'
 import { ColorPicker as CP, fromHsv } from 'react-native-color-picker'
 import styles from '../styles'
 
@@ -21,15 +20,11 @@ export default class ColorPicker extends Component {
 
   render() {
     return (
-      <View>
-        {/* <ColorWheel
-          initialColor={this.state.color}
-          style={{ marginLeft: 20, padding: 40, height: 200, width: 200 }}
-        /> */}
+      <View style={styles.deviceHeight}>
         <CP
           onColorSelected={color => this.setState({ color })}
           onColorChange={color => this.setState({ color: fromHsv(color) })}
-          style={{ flex: 1, minHeight: 400 }}
+          style={{ flex: 1, minHeight: 400, backgroundColor: 'white' }}
         />
         <Button
           block

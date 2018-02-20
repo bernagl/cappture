@@ -24,13 +24,15 @@ export default function(state = [], action) {
       return state.find(materia => materia.nombre === action.payload)
     case REHYDRATE:
       return action.payload.materias || []
-      // if (action.payload) {
-      //   return action.payload.materias
-      // }
-      // return []
     case PURGE:
       return {}
     default:
       return state
   }
 }
+
+// const orderByHour = (dia, materias) => {
+//   materias.sort((a, b) => {
+//     return new Date(a.dia.inicio) - new Date(b.fecha)
+//   })
+// }

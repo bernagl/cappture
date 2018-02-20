@@ -14,27 +14,12 @@ import moment from 'moment'
 export default function(state = [], action) {
   switch (action.type) {
     case AGREGAR_EVENTO:
-      // const eventosMateria = state.data[action.payload.id] || {}
-      // const eventos = [...eventosMateria, action.payload.evento]
       const eventos = [...state, action.payload]
       eventos.sort((a, b) => {
         return new Date(a.fecha) - new Date(b.fecha)
       })
-      // const data = {
-      //   [action.payload.id]: eventos
-      // }
-      // return {
-      //   ...state,
-      //   data: { ...state.data, [action.payload.id]: data }
-      // }
-
-      // return state
       return eventos
     case GET_EVENTOS:
-      //   const filtroMateria = state.find(id => id === payload.id)
-      //   const filtroMateria = Object.entries(state)
-      //   console.warn(state)
-      //   console.warn(filtroMateria)
       let materia = {}
       for (const id in state.data) {
         id === action.payload && (materia = state.data[id])
