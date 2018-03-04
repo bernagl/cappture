@@ -1,6 +1,7 @@
 import { StackNavigator, TabBarBottom, TabNavigator } from 'react-navigation'
 import {
   AgregarMateria,
+  Calendario,
   ColorPicker,
   DiaView,
   Evento,
@@ -18,6 +19,7 @@ export const AppNavigation = StackNavigator(
         {
           Inicio: { screen: Inicio },
           Horario: { screen: Horario },
+          Calendario: { screen: Calendario },
           Perfil: { screen: Perfil }
         },
         {

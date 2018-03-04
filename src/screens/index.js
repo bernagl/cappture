@@ -1,4 +1,5 @@
 import AgregarMateria from './view.agregar_materia'
+import Calendario from './view.calendario'
 import ColorPicker from './view.colorPicker'
 import DiaView from './view.dia'
 import Evento from './view.evento'
@@ -10,6 +11,7 @@ import Perfil from './view.perfil'
 
 export {
   AgregarMateria,
+  Calendario,
   ColorPicker,
   DiaView,
   Evento,

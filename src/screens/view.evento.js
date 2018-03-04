@@ -79,7 +79,6 @@ class Evento extends React.Component {
       tipo: eventos[tipo],
       status: false
     }
-    // console.warn(evento)
     this.props.agregarEvento(evento)
     this.props.navigation.goBack()
     Toast.show('Evento agregado')

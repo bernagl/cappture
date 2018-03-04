@@ -24,7 +24,6 @@ class DiaView extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     return <Dia dia={hoy} navigation={this.props.navigation} />
   }
 }

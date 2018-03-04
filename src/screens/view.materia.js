@@ -32,12 +32,11 @@ class Materia extends React.Component {
     }
   }
 
+  state = { icon: 'camera' }
+
   componentWillMount() {
     const { id } = this.props.navigation.state.params.data
-    // this.props.getEventos(id)
   }
-
-  handleTarea = id => {}
 
   renderTareas = () => {
     let fecha
@@ -79,90 +78,37 @@ class Materia extends React.Component {
     return events
   }
 
+  setIcon(icon) {
+    icon = icon === 0 ? 'camera' : 'add'
+    this.setState({ icon })
+  }
+
   render() {
     const { data } = this.props.navigation.state.params
     const { eventos } = this.props
     const events = this.eventos(eventos)
-    console.log(events)
     return (
-      <Content>
-        <Tabs initialPage={0}>
-          <Tab heading="Fotos" style={styles.deviceHeight}>
-            <Text>Aquí van a ir las fotos</Text>
-          </Tab>
-          <Tab heading="Tareas" style={styles.deviceHeight}>
-            <Agenda
-              items={events}
-              renderItem={(item, firstItemInDay) => {
-                console.log(item)
-                return (
-                  <View style={{ padding: 10, backgroundColor: 'white' }}>
-                    <H3>{item.nombre}</H3>
-                    <Text>{item.status ? 'Terminada' : 'Pendiente'}</Text>
-                  </View>
-                )
-              }}
-              loadItemsForMonth={month => {}}
-              renderEmptyDate={() => {
-                return (
-                  <View
-                    style={{
-                      backgroundColor: 'white',
-                      paddingHorizontal: 10,
-                      justifyContent: 'center',
-                      alignItems: 'center'
-                    }}
-                  >
-                    <H1>hola</H1>
-                    <Text style={{ fontSize: 12 }}>jeje</Text>
-                  </View>
-                )
-              }}
-              renderDay={(day, item) => {
-                const dia = day
-                  ? moment(day.timestamp).format('ddd')
-                  : 'undefined'
-                return (
-                  <View
-                    style={{
-                      backgroundColor: 'white',
-                      paddingHorizontal: 10,
-                      justifyContent: 'center',
-                      alignItems: 'center'
-                    }}
-                  >
-                    <H1>{day.day}</H1>
-                    <Text style={{ fontSize: 12 }}>{dia}</Text>
-                  </View>
-                )
-              }}
-              renderEmptyData={() => {
-                return (
-                  <View
-                    style={{ justifyContent: 'center', alignItems: 'center' }}
-                  >
-                    <H1>:D</H1>
-                    <Text>Día libre, puedes aprovechar para ver una serie</Text>
-                  </View>
-                )
-              }}
-              rowHasChanged={(r1, r2) => {
-                return r1.text !== r2.text
-              }}
-            />
-            {/* {this.props.eventos && this.renderTareas()}
-            <Fab
-              style={{
-                backgroundColor: '#403a74'
-              }}
-              position="bottomRight"
-              onPress={() => this.props.navigation.navigate('Evento', { data })}
-            >
-              <Icon name="add" />
-            </Fab> */}
-          </Tab>
-        </Tabs>
-      </Content>
+      <React.Fragment>
+        <Content>
+          <Tabs initialPage={0} onChangeTab={({ i, r }) => this.setIcon(i)}>
+            <Tab heading="Fotos" style={styles.deviceHeight}>
+              <Text>Aquí van a ir las fotos</Text>
+            </Tab>
+            <Tab heading="Tareas" style={styles.deviceHeight}>
+              {this.props.eventos && this.renderTareas()}
+            </Tab>
+          </Tabs>
+        </Content>
+        <Fab
+          style={{
+            backgroundColor: '#403a74'
+          }}
+          position="bottomRight"
+          onPress={() => this.props.navigation.navigate('Evento', { data })}
+        >
+          <Icon name={this.state.icon} />
+        </Fab>
+      </React.Fragment>
     )
   }
 }
