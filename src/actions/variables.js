@@ -1,4 +1,4 @@
-export default [
+export const dias = [
   { dia: 'Domingo', original: 'Domingo' },
   { dia: 'Lunes', original: 'Lunes' },
   { dia: 'Martes', original: 'Martes' },
@@ -7,3 +7,5 @@ export default [
   { dia: 'Viernes', original: 'Viernes' },
   { dia: 'Sabado', original: 'Sábado' }
 ]
+
+export const tipo_eventos = ['Exámen', 'Exposición', 'Tarea', 'Otro']

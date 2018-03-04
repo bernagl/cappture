@@ -4,10 +4,14 @@ import { getEventos, setEventoCumplido } from '../actions/evento_actions'
 import { Dimensions, Platform, View } from 'react-native'
 import {
   Body,
+  Card,
+  CardItem,
   CheckBox,
   Content,
   Fab,
   Header,
+  H1,
+  H3,
   Icon,
   ListItem,
   Tab,
@@ -15,6 +19,7 @@ import {
   Text,
   Title
 } from 'native-base'
+import { Agenda } from 'react-native-calendars'
 import { TareaItem } from '../components'
 import moment from 'moment'
 import styles from '../styles'
@@ -62,19 +67,90 @@ class Materia extends React.Component {
     })
   }
 
+  eventos(eventos) {
+    let events = {}
+    eventos.map(
+      evento =>
+        (events = {
+          ...events,
+          [moment(evento.fecha).format('YYYY-MM-D')]: [{ ...evento }]
+        })
+    )
+    return events
+  }
+
   render() {
     const { data } = this.props.navigation.state.params
+    const { eventos } = this.props
+    const events = this.eventos(eventos)
+    console.log(events)
     return (
       <Content>
-        <Tabs
-          initialPage={0}
-          // style={{ position: 'absolute', top: 50, right: 0, left: 0 }}
-        >
+        <Tabs initialPage={0}>
           <Tab heading="Fotos" style={styles.deviceHeight}>
             <Text>Aquí van a ir las fotos</Text>
           </Tab>
           <Tab heading="Tareas" style={styles.deviceHeight}>
-            {this.props.eventos && this.renderTareas()}
+            <Agenda
+              items={events}
+              renderItem={(item, firstItemInDay) => {
+                console.log(item)
+                return (
+                  <View style={{ padding: 10, backgroundColor: 'white' }}>
+                    <H3>{item.nombre}</H3>
+                    <Text>{item.status ? 'Terminada' : 'Pendiente'}</Text>
+                  </View>
+                )
+              }}
+              loadItemsForMonth={month => {}}
+              renderEmptyDate={() => {
+                return (
+                  <View
+                    style={{
+                      backgroundColor: 'white',
+                      paddingHorizontal: 10,
+                      justifyContent: 'center',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <H1>hola</H1>
+                    <Text style={{ fontSize: 12 }}>jeje</Text>
+                  </View>
+                )
+              }}
+              renderDay={(day, item) => {
+                const dia = day
+                  ? moment(day.timestamp).format('ddd')
+                  : 'undefined'
+                return (
+                  <View
+                    style={{
+                      backgroundColor: 'white',
+                      paddingHorizontal: 10,
+                      justifyContent: 'center',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <H1>{day.day}</H1>
+                    <Text style={{ fontSize: 12 }}>{dia}</Text>
+                  </View>
+                )
+              }}
+              renderEmptyData={() => {
+                return (
+                  <View
+                    style={{ justifyContent: 'center', alignItems: 'center' }}
+                  >
+                    <H1>:D</H1>
+                    <Text>Día libre, puedes aprovechar para ver una serie</Text>
+                  </View>
+                )
+              }}
+              rowHasChanged={(r1, r2) => {
+                return r1.text !== r2.text
+              }}
+            />
+            {/* {this.props.eventos && this.renderTareas()}
             <Fab
               style={{
                 backgroundColor: '#403a74'
@@ -83,7 +159,7 @@ class Materia extends React.Component {
               onPress={() => this.props.navigation.navigate('Evento', { data })}
             >
               <Icon name="add" />
-            </Fab>
+            </Fab> */}
           </Tab>
         </Tabs>
       </Content>

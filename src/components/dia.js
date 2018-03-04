@@ -21,39 +21,55 @@ let hoy = moment().format('dddd')
 class Dia extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { hoy: '', listViewData: [] }
+    this.state = { hoy: '', listViewData: [], clases: [], materias: [] }
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
   }
 
-  diaNumero(dia) {
-    switch (dia) {
-      case 'Domingo':
-        return 0
-      case 'Lunes':
-        return 1
-      case 'Martes':
-        return 2
-      case 'Miercoles':
-        return 3
-      case 'Jueves':
-        return 4
-      case 'Viernes':
-        return 5
-      case 'Sabado':
-        return 6
-    }
-  }
-
-  // componentDidMount() {
-  //   let { dia, materias } = this.props
-  //   dia = dia ? dia : hoy
-    // let diaNumero = this.diaNumero(dia)
-    // this.props.materias.sort((a, b) => {
-    //   console.warn(a.dias[diaNumero].inicio)
-    //   return new Date(a.dias[diaNumero].inicio) - new Date(b.dias[diaNumero].inicio)
-    // })
-    // console.warn(materias)    
+  // diaNumero(dia) {
+  //   switch (dia) {
+  //     case 'Domingo':
+  //       return 0
+  //     case 'Lunes':
+  //       return 1
+  //     case 'Martes':
+  //       return 2
+  //     case 'Miercoles':
+  //       return 3
+  //     case 'Jueves':
+  //       return 4
+  //     case 'Viernes':
+  //       return 5
+  //     case 'Sabado':
+  //       return 6
+  //   }
   // }
+
+  componentDidMount() {
+    let { dia, materias } = this.props
+    const clases = []
+    let clasesObj = {}
+    materias.filter(materia => {
+      const { id } = materia
+      return materia.dias.map(dia => {
+        dia.checked &&
+          dia.nombre === hoy &&
+          (clases.push({ id: materia.id, hora: dia.inicio }),
+          (clasesObj = {
+            ...clasesObj,
+            [id]: { id: materia.id, hora: dia.inicio }
+          }))
+      })
+    })
+
+    clases.sort(
+      (a, b) =>
+        moment(b.hora, 'hh:mm A').diff(moment(a.hora, 'hh:mm A')) > 0 ? -1 : 1
+    )
+    const materiasSorted = this.props.materias.filter((materia) => clasesObj[materia.id] && materia )
+    this.setState({ materias: materiasSorted })
+    this.props.materias = materiasSorted
+    console.log(materiasSorted)
+  }
 
   deleteRow(secId, rowId, rowMap) {
     rowMap[`${secId}${rowId}`].props.closeRow()
@@ -62,7 +78,7 @@ class Dia extends React.Component {
     this.setState({ listViewData: newData })
   }
 
-  renderMaterias = data => {
+  renderMateria = data => {
     const { dia } = this.props
     hoy = dia ? dia : hoy
     const materiaHoy = data.dias.find(dia => dia.nombre === hoy && dia.checked)
@@ -80,17 +96,17 @@ class Dia extends React.Component {
   }
 
   render() {
-    return this.props.materias.length > 0 ? (
+    const { materias, navigation } = this.props
+    const { clases } = this.state
+    return materias.length > 0 ? (
       <Content style={styles.deviceHeight}>
         <List
-          dataSource={this.ds.cloneWithRows(this.props.materias)}
-          renderRow={data => this.renderMaterias(data)}
+          dataSource={this.ds.cloneWithRows(materias)}
+          renderRow={data => this.renderMateria(data)}
           renderLeftHiddenRow={data => (
             <Button
               full
-              onPress={() =>
-                this.props.navigation.navigate('AgregarMateria', { data })
-              }
+              onPress={() => navigation.navigate('AgregarMateria', { data })}
             >
               <Icon active name="information-circle" />
             </Button>
@@ -99,7 +115,7 @@ class Dia extends React.Component {
             <Button
               full
               danger
-              onPress={() => this.props.navigation.navigate('Evento', { data })}
+              onPress={() => navigation.navigate('Evento', { data })}
             >
               <Icon active name="trash" />
             </Button>

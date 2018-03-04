@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import moment from 'moment'
 import { Fab, Icon } from 'native-base'
 import { Dia } from '../components'
-import dias from '../actions/variables'
+import { dias } from '../actions/variables'
 import 'moment/locale/es.js'
 moment.locale('es')
 let hoy = moment().format('dddd')

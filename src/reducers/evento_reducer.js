@@ -35,14 +35,10 @@ export default function(state = [], action) {
 
     //   })
     //   return
-    case REHYDRATE:
-      return action.payload.eventos || []
-    //   if (action.payload.eventos) {
-    //     return action.payload.eventos
-    //   }
-    //   return {}
-    case PURGE:
-      return INITIAL_STATE
+    // case REHYDRATE:
+    //   return action.payload.eventos || []
+    // case PURGE:
+    //   return INITIAL_STATE
     default:
       return state
   }

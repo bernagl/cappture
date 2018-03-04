@@ -27,10 +27,10 @@ const variables = {
   dias: [
     { nombre: 'Lunes', inicio: '', fin: '', salon: '', edificio: '', checked: false },
     { nombre: 'Martes', inicio: '', fin: '', salon: '', edificio: '', checked: false },
-    { nombre: 'Miercoles', label: 'Miércoles', inicio: '', fin: '', salon: '', edificio: '', checked: false },
+    { nombre: 'Miércoles', inicio: '', fin: '', salon: '', edificio: '', checked: false },
     { nombre: 'Jueves', inicio: '', fin: '', salon: '', edificio: '', checked: false },
     { nombre: 'Viernes', inicio: '', fin: '', salon: '', edificio: '', checked: false },
-    { nombre: 'Sabado', label: 'Sábado', inicio: '', fin: '', salon: '', edificio: '', checked: false },
+    { nombre: 'Sábado', inicio: '', fin: '', salon: '', edificio: '', checked: false },
     { nombre: 'Domingo', inicio: '', fin: '', salon: '', edificio: '', checked: false }
   ],
     materia: '',
@@ -44,10 +44,10 @@ class AgregarMateria extends React.Component {
     this.state = { dias: [
       { nombre: 'Lunes', inicio: '', fin: '', salon: '', edificio: '', checked: false },
       { nombre: 'Martes', inicio: '', fin: '', salon: '', edificio: '', checked: false },
-      { nombre: 'Miercoles', label: 'Miércoles', inicio: '', fin: '', salon: '', edificio: '', checked: false },
+      { nombre: 'Miércoles', inicio: '', fin: '', salon: '', edificio: '', checked: false },
       { nombre: 'Jueves', inicio: '', fin: '', salon: '', edificio: '', checked: false },
       { nombre: 'Viernes', inicio: '', fin: '', salon: '', edificio: '', checked: false },
-      { nombre: 'Sabado', label: 'Sábado', inicio: '', fin: '', salon: '', edificio: '', checked: false },
+      { nombre: 'Sábado', inicio: '', fin: '', salon: '', edificio: '', checked: false },
       { nombre: 'Domingo', inicio: '', fin: '', salon: '', edificio: '', checked: false }
       ], materia: '', profesor: '', color: '#fff' }
   }
@@ -67,7 +67,7 @@ class AgregarMateria extends React.Component {
     checkDias.length === 0 || !materia || !profesor  ? (alert('Por favor llena los campos requeridos')) :
     id ? (this.props.actualizarMateria(this.state), 
     this.props.navigation.goBack()) : this.props.agregarMateria(this.state)
-    this.setState({ dias: variables.dias , materia: '', profesor: '', color: '' })
+    this.setState({ dias: variables.dias , materia: '', profesor: '', color: '#fff' })
   }
 
   handleInput = (name, data) => {

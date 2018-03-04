@@ -3,7 +3,7 @@ import { TabNavigator } from 'react-navigation'
 import { Text, View } from 'react-native'
 import { Body, Content, Header, Icon, Title } from 'native-base'
 import { DiaItem } from '../components'
-import dias from '../actions/variables'
+import { dias } from '../actions/variables'
 import styles from '../styles'
 
 export default class Horario extends React.Component {
