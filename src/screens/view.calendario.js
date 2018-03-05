@@ -23,7 +23,7 @@ class Materia extends React.Component {
       evento =>
         (events = {
           ...events,
-          [moment(evento.fecha).format('YYYY-MM-D')]: [{ ...evento }]
+          [moment(evento.fecha).format('YYYY-MM-DD')]: [{ ...evento }]
         })
     )
     return events

@@ -46,6 +46,7 @@ class Dia extends React.Component {
 
   componentDidMount() {
     let { dia, materias } = this.props
+    hoy = dia ? dia : hoy
     const clases = []
     let clasesObj = {}
     materias.filter(materia => {
@@ -53,22 +54,24 @@ class Dia extends React.Component {
       return materia.dias.map(dia => {
         dia.checked &&
           dia.nombre === hoy &&
-          (clases.push({ id: materia.id, hora: dia.inicio }),
+          (clases.push({ id: materia.id, inicio: dia.inicio, fin: dia.fin }),
           (clasesObj = {
             ...clasesObj,
-            [id]: { id: materia.id, hora: dia.inicio }
+            [id]: { id: materia.id, inicio: dia.inicio, fin: dia.fin }
           }))
       })
     })
 
     clases.sort(
       (a, b) =>
-        moment(b.hora, 'hh:mm A').diff(moment(a.hora, 'hh:mm A')) > 0 ? -1 : 1
+        moment(b.inicio, 'hh:mm A').diff(moment(a.inicio, 'hh:mm A')) > 0
+          ? -1
+          : 1
     )
-    const materiasSorted = this.props.materias.filter((materia) => clasesObj[materia.id] && materia )
-    this.setState({ materias: materiasSorted })
-    this.props.materias = materiasSorted
-    console.log(materiasSorted)
+    const materiasSorted = clases.filter(
+      materia => clasesObj[materia.id] && materia
+    )
+    this.setState({ materias: materiasSorted, clases: clasesObj })
   }
 
   deleteRow(secId, rowId, rowMap) {
@@ -79,25 +82,31 @@ class Dia extends React.Component {
   }
 
   renderMateria = data => {
-    const { dia } = this.props
-    hoy = dia ? dia : hoy
-    const materiaHoy = data.dias.find(dia => dia.nombre === hoy && dia.checked)
+    const { materias } = this.props
+    let materia = {}
+    materias.filter(
+      clase =>
+        clase.id === data.id &&
+        (materia = { ...clase, inicio: data.inicio, fin: data.fin })
+    )
+    console.log(materia)
     return (
-      materiaHoy && (
+      materia && (
         <MateriaItem
           navigation={this.props.navigation}
-          dia={materiaHoy}
-          materia={data.materia}
-          profesor={data.profesor}
-          data={{ ...materiaHoy, ...data }}
+          dia={hoy}
+          materia={materia.materia}
+          profesor={materia.profesor}
+          data={{ hoy, ...materia }}
         />
       )
     )
   }
 
   render() {
-    const { materias, navigation } = this.props
-    const { clases } = this.state
+    const { navigation } = this.props
+    const { clases, materias } = this.state
+    console.log(this.state)
     return materias.length > 0 ? (
       <Content style={styles.deviceHeight}>
         <List
