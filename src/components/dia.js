@@ -25,25 +25,6 @@ class Dia extends React.Component {
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
   }
 
-  // diaNumero(dia) {
-  //   switch (dia) {
-  //     case 'Domingo':
-  //       return 0
-  //     case 'Lunes':
-  //       return 1
-  //     case 'Martes':
-  //       return 2
-  //     case 'Miercoles':
-  //       return 3
-  //     case 'Jueves':
-  //       return 4
-  //     case 'Viernes':
-  //       return 5
-  //     case 'Sabado':
-  //       return 6
-  //   }
-  // }
-
   componentDidMount() {
     let { dia, materias } = this.props
     hoy = dia ? dia : hoy
@@ -54,7 +35,12 @@ class Dia extends React.Component {
       return materia.dias.map(dia => {
         dia.checked &&
           dia.nombre === hoy &&
-          (clases.push({ id: materia.id, inicio: dia.inicio, fin: dia.fin }),
+          (clases.push({
+            ...materia,
+            id: materia.id,
+            inicio: dia.inicio,
+            fin: dia.fin
+          }),
           (clasesObj = {
             ...clasesObj,
             [id]: { id: materia.id, inicio: dia.inicio, fin: dia.fin }
@@ -68,6 +54,7 @@ class Dia extends React.Component {
           ? -1
           : 1
     )
+
     const materiasSorted = clases.filter(
       materia => clasesObj[materia.id] && materia
     )
@@ -82,31 +69,15 @@ class Dia extends React.Component {
   }
 
   renderMateria = data => {
-    const { materias } = this.props
-    let materia = {}
-    materias.filter(
-      clase =>
-        clase.id === data.id &&
-        (materia = { ...clase, inicio: data.inicio, fin: data.fin })
-    )
-    console.log(materia)
     return (
-      materia && (
-        <MateriaItem
-          navigation={this.props.navigation}
-          dia={hoy}
-          materia={materia.materia}
-          profesor={materia.profesor}
-          data={{ hoy, ...materia }}
-        />
-      )
+      <MateriaItem navigation={this.props.navigation} data={{ hoy, ...data }} />
     )
   }
 
   render() {
     const { navigation } = this.props
     const { clases, materias } = this.state
-    console.log(this.state)
+    console.log(materias)
     return materias.length > 0 ? (
       <Content style={styles.deviceHeight}>
         <List

@@ -57,6 +57,7 @@ class AgregarMateria extends React.Component {
   }
 
   componentDidMount(){
+    console.log(this.props)
     const { data } = this.props.navigation.state.params || false
     data && this.setState({ ...data })
   }
