@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getEventos, setEventoCumplido } from '../actions/evento_actions'
+import { getEventos, toggleEvento } from '../actions/evento_actions'
 import { Dimensions, Platform, View } from 'react-native'
 import {
   Body,
@@ -56,7 +56,10 @@ class Materia extends React.Component {
             </ListItem>
           )}
           <ListItem key={key}>
-            <CheckBox checked={evento.status} />
+            <CheckBox
+              checked={evento.status}
+              onPress={() => this.handleEvento(evento.id)}
+            />
             <Body>
               <Text>{evento.nombre}</Text>
             </Body>
@@ -66,16 +69,8 @@ class Materia extends React.Component {
     })
   }
 
-  eventos(eventos) {
-    let events = {}
-    eventos.map(
-      evento =>
-        (events = {
-          ...events,
-          [moment(evento.fecha).format('YYYY-MM-D')]: [{ ...evento }]
-        })
-    )
-    return events
+  handleEvento(id) {
+    this.props.toggleEvento(id)
   }
 
   setIcon(icon) {
@@ -86,7 +81,6 @@ class Materia extends React.Component {
   render() {
     const { data } = this.props.navigation.state.params
     const { eventos } = this.props
-    const events = this.eventos(eventos)
     return (
       <React.Fragment>
         <Content>
@@ -115,6 +109,6 @@ class Materia extends React.Component {
 
 mapDispatchToProps = ({ eventos }) => ({ eventos })
 
-export default connect(mapDispatchToProps, { getEventos, setEventoCumplido })(
+export default connect(mapDispatchToProps, { getEventos, toggleEvento })(
   Materia
 )

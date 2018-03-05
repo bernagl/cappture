@@ -1,8 +1,4 @@
-import {
-  AGREGAR_EVENTO,
-  GET_EVENTOS,
-  SET_EVENTO_CUMPLIDO
-} from '../actions/types'
+import { AGREGAR_EVENTO, GET_EVENTOS, TOGGLE_EVENTO } from '../actions/types'
 import { REHYDRATE, PURGE } from 'redux-persist'
 import moment from 'moment'
 
@@ -12,9 +8,10 @@ import moment from 'moment'
 // }
 
 export default function(state = [], action) {
+  let eventos = []
   switch (action.type) {
     case AGREGAR_EVENTO:
-      const eventos = [...state, action.payload]
+      eventos = [...state, action.payload]
       eventos.sort((a, b) => {
         return new Date(a.fecha) - new Date(b.fecha)
       })
@@ -30,13 +27,17 @@ export default function(state = [], action) {
         ? { ...state, materia: [...materia[action.payload]] }
         : { ...state, materia: [] }
     //   revisar que que me hace el segundo filtro sobre los eventos que ya habia filtrado por eso ya no muestra nada
-    // case SET_EVENTO_CUMPLIDO:
-    //   state.data[action.payload.materia].map(evento => {
-
-    //   })
-    //   return
+    case TOGGLE_EVENTO:
+      console.log(state)
+      eventos = state.map(
+        evento =>
+          evento.id === action.payload
+            ? { ...evento, status: !evento.status }
+            : evento
+      )
+      return eventos
     // case REHYDRATE:
-    //   return action.payload.eventos || []
+    // return []
     // case PURGE:
     //   return INITIAL_STATE
     default:
